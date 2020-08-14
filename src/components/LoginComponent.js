@@ -3,7 +3,8 @@ import { Button, Form, FormGroup, Label, Input, Container,
   Card, CardBody, Row, Col, FormFeedback } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-const LoginComponent = ({ username, password, setUsername, setPassword, logValues }) => {
+const LoginComponent = ({ username, password, setUsername, setPassword,
+    validateData, usernameError, passwordError }) => {
   const setUsernameWrapper = (e) => {
     setUsername(e.target.value);
   }
@@ -19,15 +20,20 @@ const LoginComponent = ({ username, password, setUsername, setPassword, logValue
               <Form>
                 <FormGroup>
                   <Label for="exampleEmail">Email</Label>
-                  <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" value={username} onChange={setUsernameWrapper} />
-                  <FormFeedback>Oh noes! that name is already taken</FormFeedback>
+                  <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder"
+                         value={username} onChange={setUsernameWrapper}
+                         invalid={(usernameError !== null)} />
+                  <FormFeedback>{usernameError}</FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Label for="examplePassword">Password</Label>
-                  <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" value={password} onChange={setPasswordWrapper} />
-                  <FormFeedback>Oh noes! that name is already taken</FormFeedback>
+                  <Input type="password" name="password" id="examplePassword"
+                         placeholder="password placeholder" value={password}
+                         onChange={setPasswordWrapper}
+                         invalid={(passwordError !== null)} />
+                  <FormFeedback>{passwordError}</FormFeedback>
                 </FormGroup>
-                <Button onClick={logValues}>Submit</Button>
+                <Button onClick={validateData}>Submit</Button>
               </Form>
             </CardBody>
           </Card>
