@@ -3,13 +3,13 @@ import { Button, Form, FormGroup, Label, Input, Container,
   Card, CardBody, Row, Col, FormFeedback } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-const LoginComponent = ({ username, password, setUsername, setPassword,
-    validateData, usernameError, passwordError }) => {
+const LoginComponent = ({ state, dispatch, validateData }) => {
+  let { username, password, usernameError, passwordError } = state;
   const setUsernameWrapper = (e) => {
-    setUsername(e.target.value);
+    dispatch({value: e.target.value, key: 'username'});
   }
   const setPasswordWrapper = (e) => {
-    setPassword(e.target.value);
+    dispatch({value: e.target.value, key: 'password'});
   }
   return (
     <Container>
@@ -20,17 +20,16 @@ const LoginComponent = ({ username, password, setUsername, setPassword,
               <Form>
                 <FormGroup>
                   <Label for="exampleEmail">Email</Label>
-                  <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder"
-                         value={username} onChange={setUsernameWrapper}
-                         invalid={(usernameError !== null)} />
+                  <Input type="email" name="email" id="exampleEmail"
+                    placeholder="with a placeholder" value={username}
+                    onChange={setUsernameWrapper} invalid={(usernameError !== null)} />
                   <FormFeedback>{usernameError}</FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Label for="examplePassword">Password</Label>
                   <Input type="password" name="password" id="examplePassword"
-                         placeholder="password placeholder" value={password}
-                         onChange={setPasswordWrapper}
-                         invalid={(passwordError !== null)} />
+                    placeholder="password placeholder" value={password}
+                    onChange={setPasswordWrapper} invalid={(passwordError !== null)} />
                   <FormFeedback>{passwordError}</FormFeedback>
                 </FormGroup>
                 <Button onClick={validateData}>Submit</Button>
