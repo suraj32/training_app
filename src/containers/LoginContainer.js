@@ -4,18 +4,20 @@ import * as yup from 'yup';
 import apiHelper from "../apis/apiHelper";
 import ProductList from "../components/ProductList"
 import loginDetailsReducer from "../reducers/loginDetailsReducer"
+import { LOGIN_REDUCER } from "../shared/actionConstants";
 
 const LoginContainer = () => {
   const initialState = {
     email: "",
     password: "",
     emailErrorText: "",
-    passwordErrorText: ""
+    passwordErrorText: "",
+    userDetails: {},
   };
 
   const [loginDetails, dispatch] = useReducer(loginDetailsReducer, initialState);
 
-  const { email, password, emailErrorText, passwordErrorText } = loginDetails
+  const { email, password, userDetails  } = loginDetails
 
   let schema = yup.object().shape({
     email: yup.string().email().required(),
@@ -26,8 +28,9 @@ const LoginContainer = () => {
     schema.validate({ email: email, password: password }, { abortEarly: false })
     .then(() => {
       apiHelper('post', 'https://api.taiga.io/api/v1/auth',
-        {username: email, password: password, type: 'normal'}).then((response) => {
-        console.log(response)
+        {username: email, password: password, type: 'normal'}).then((data) => {
+        dispatch({ type: LOGIN_REDUCER.SET_USER_DETAILS, value: data });
+        console.log(userDetails)
       })
     })
     .catch((err) => {
