@@ -2,17 +2,11 @@ import React from "react";
 import { Button, Form, FormGroup, Label, Input, Container,
   Card, CardBody, Row, Col, FormFeedback } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { LOGIN_REDUCER } from "../shared/actionConstants";
 
-const LoginComponent = ({ loginDetails, dispatch, validateData }) => {
+const LoginComponent = ({ loginDetails, setUsernameWrapper, setPasswordWrapper, validateData }) => {
+
   const { email, password, emailErrorText, passwordErrorText } = loginDetails
 
-  const setUsernameWrapper = (e) => {
-    dispatch({type: LOGIN_REDUCER.SET_EMAIL, value: e.target.value});
-  }
-  const setPasswordWrapper = (e) => {
-    dispatch({type: LOGIN_REDUCER.SET_PASSWORD, value: e.target.value});
-  }
   return (
     <Container>
       <Row className="align-items-center">
@@ -51,9 +45,5 @@ LoginComponent.prototype = {
   password: PropTypes.string.isRequired,
   setUsername: PropTypes.func.isRequired,
   setPassword: PropTypes.func.isRequired,
-  logValues: PropTypes.func.isRequired
+  validateData: PropTypes.func.isRequired
 }
-
-// LoginComponent.defaultProps = {
-//   username: 'test'
-// }

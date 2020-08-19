@@ -4,12 +4,24 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Routes from "./routes/Routes";
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { loginDetailsReducer } from './reducers/loginDetailsReducer';
 import { Provider } from 'react-redux';
-import projectsReducer from './reducers/projectsReducer'
+import projectsReducer from './reducers/projectsReducer';
+import createSagaMiddleware from 'redux-saga';
+import userSaga from "./sagas/userSaga";
 
-const store = createStore(combineReducers({loginDetailsReducer, projectsReducer}));
+const sagaMiddleware = createSagaMiddleware()
+
+const store = createStore(
+  combineReducers({
+    loginDetailsReducer,
+    projectsReducer
+  }),
+  applyMiddleware(sagaMiddleware)
+);
+
+sagaMiddleware.run(userSaga);
 
 ReactDOM.render(
   <React.StrictMode>
