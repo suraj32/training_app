@@ -12,9 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 const LoginContainer = () => {
 
   const dispatch = useDispatch();
-  const result = useSelector(state => state);
-
-  // const [loginDetails, dispatch] = useReducer(loginDetailsReducer, initialState);
+  const result = useSelector(state => state.loginDetailsReducer);
 
   const { email, password, emailErrorText, passwordErrorText, userDetails  } = result;
   const loginDetails = { email, password, emailErrorText, passwordErrorText  };

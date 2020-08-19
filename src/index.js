@@ -10,7 +10,7 @@ import { loginDetailsReducer } from './reducers/loginDetailsReducer';
 import { Provider } from 'react-redux';
 import projectsReducer from './reducers/projectsReducer'
 
-const store = createStore(loginDetailsReducer);
+const store = createStore(combineReducers({loginDetailsReducer, projectsReducer}));
 
 ReactDOM.render(
   <React.StrictMode>

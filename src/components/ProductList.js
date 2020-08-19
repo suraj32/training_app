@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { Row, Col } from "reactstrap";
 
 const ProductList = (props) => {
-  const { userDetails } = useSelector(state => state);
+  const { userDetails } = useSelector(state => state.loginDetailsReducer);
 
   return (
     <>
