@@ -1,11 +1,8 @@
-import React, { useReducer } from "react";
+import React from "react";
 import LoginComponent from "../components/LoginComponent";
 import * as yup from 'yup';
 import login from "../apis/loginApi";
-import ProductList from "../components/ProductList"
-import { loginDetailsReducer, initialState } from "../reducers/loginDetailsReducer"
 import { LOGIN_REDUCER } from "../shared/actionConstants";
-import DashboardContainer from "./DashboardContainer";
 import {Redirect} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
