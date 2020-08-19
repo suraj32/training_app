@@ -5,10 +5,14 @@ import login from "../apis/loginApi";
 import ProductList from "../components/ProductList"
 import { loginDetailsReducer, initialState } from "../reducers/loginDetailsReducer"
 import { LOGIN_REDUCER } from "../shared/actionConstants";
+import DashboardContainer from "./DashboardContainer";
+import {Redirect} from "react-router-dom";
 
 const LoginContainer = () => {
 
   const [loginDetails, dispatch] = useReducer(loginDetailsReducer, initialState);
+
+  const { userDetails } = loginDetails;
 
   let schema = yup.object().shape({
     email: yup.string().email().required(),
@@ -41,6 +45,10 @@ const LoginContainer = () => {
       }
     });
   };
+
+  if (userDetails.auth_token) {
+    return ( <Redirect to="/dashboard" /> );
+  }
 
   return (
     <LoginComponent loginDetails={loginDetails} dispatch={dispatch} validateData={validateData}/>
