@@ -7,12 +7,17 @@ import { loginDetailsReducer, initialState } from "../reducers/loginDetailsReduc
 import { LOGIN_REDUCER } from "../shared/actionConstants";
 import DashboardContainer from "./DashboardContainer";
 import {Redirect} from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 const LoginContainer = () => {
 
-  const [loginDetails, dispatch] = useReducer(loginDetailsReducer, initialState);
+  const dispatch = useDispatch();
+  const result = useSelector(state => state);
 
-  const { userDetails } = loginDetails;
+  // const [loginDetails, dispatch] = useReducer(loginDetailsReducer, initialState);
+
+  const { email, password, emailErrorText, passwordErrorText, userDetails  } = result;
+  const loginDetails = { email, password, emailErrorText, passwordErrorText  };
 
   let schema = yup.object().shape({
     email: yup.string().email().required(),
