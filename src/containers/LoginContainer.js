@@ -1,23 +1,14 @@
 import React, { useReducer } from "react";
 import LoginComponent from "../components/LoginComponent";
 import * as yup from 'yup';
-import apiHelper from "../apis/apiHelper";
+import login from "../apis/loginApi";
 import ProductList from "../components/ProductList"
-import loginDetailsReducer from "../reducers/loginDetailsReducer"
+import { loginDetailsReducer, initialState } from "../reducers/loginDetailsReducer"
 import { LOGIN_REDUCER } from "../shared/actionConstants";
 
 const LoginContainer = () => {
-  const initialState = {
-    email: "",
-    password: "",
-    emailErrorText: "",
-    passwordErrorText: "",
-    userDetails: {},
-  };
 
   const [loginDetails, dispatch] = useReducer(loginDetailsReducer, initialState);
-
-  const { email, password, userDetails  } = loginDetails
 
   let schema = yup.object().shape({
     email: yup.string().email().required(),
@@ -25,23 +16,34 @@ const LoginContainer = () => {
   });
 
   const validateData = () => {
-    schema.validate({ email: email, password: password }, { abortEarly: false })
-    .then(() => {
-      apiHelper('post', 'https://api.taiga.io/api/v1/auth',
-        {username: email, password: password, type: 'normal'}).then((data) => {
-        dispatch({ type: LOGIN_REDUCER.SET_USER_DETAILS, value: data });
-        console.log(userDetails)
-      })
-    })
-    .catch((err) => {
-      err.inner.forEach((ele) => {
-        dispatch({ type: `SET_${ele.path.toUpperCase()}_ERROR`, value: ele.message });
-      });
+    schema.isValid(loginDetails).then(function (valid) {
+      if (!valid) {
+        schema.validate(loginDetails, { abortEarly: false }).catch((err) => {
+          err.inner.forEach((ele) => {
+            dispatch({
+              type: `SET_${ele.path.toUpperCase()}_ERROR`,
+              value: ele.message,
+            });
+          });
+        });
+      } else {
+        //Initiated Login Api call
+        login(loginDetails)
+          .then(({ data }) => {
+            // success
+            // set state isLoggedIn as true
+            dispatch({ type: LOGIN_REDUCER.SET_USER_DETAILS, value: data });
+          })
+          .catch((error) => {
+            // TODO show error to user
+            console.log(error);
+          });
+      }
     });
   };
 
   return (
-    <LoginComponent loginDetails={loginDetails} dispatch={dispatch} validateData={validateData} />
+    <LoginComponent loginDetails={loginDetails} dispatch={dispatch} validateData={validateData}/>
   );
 }
 

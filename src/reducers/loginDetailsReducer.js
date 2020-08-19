@@ -1,6 +1,6 @@
 import { LOGIN_REDUCER } from "../shared/actionConstants";
 
-const initialState = {
+export const initialState = {
   email: "",
   password: "",
   emailErrorText: "",
@@ -8,7 +8,7 @@ const initialState = {
   userDetails: {},
 };
 
-const loginDetailsReducer = (state = initialState, action) => {
+export const loginDetailsReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REDUCER.SET_EMAIL:
       return { ...state, email: action.value };
@@ -24,5 +24,3 @@ const loginDetailsReducer = (state = initialState, action) => {
       return state;
   }
 };
-
-export default loginDetailsReducer;

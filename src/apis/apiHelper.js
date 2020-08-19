@@ -1,11 +1,10 @@
 import axios from 'axios';
+import { API_HOST_URL } from "../shared/appConstants"
 
-const apiHelper = (type, url, data) => {
+export const callApi = (path, method, data) => {
   return axios({
-    method: type,
-    url,
+    method,
+    url: `${API_HOST_URL}${path}`,
     data
   });
 };
-
-export default apiHelper;
