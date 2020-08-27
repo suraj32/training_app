@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginContainer Must return Login component 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <div
+      class="align-items-center row"
+    >
+      <div
+        class="mt-5 col-sm-6 offset-sm-3"
+      >
+        <div
+          class="card"
+        >
+          <div
+            class="card-body"
+          >
+            <form
+              class=""
+            >
+              <div
+                class="form-group"
+              >
+                <label
+                  class=""
+                  for="exampleEmail"
+                >
+                  Email
+                </label>
+                <input
+                  aria-invalid="false"
+                  class="form-control"
+                  id="exampleEmail"
+                  name="email"
+                  placeholder="with a placeholder"
+                  type="email"
+                  value=""
+                />
+                <div
+                  class="invalid-feedback"
+                />
+              </div>
+              <div
+                class="form-group"
+              >
+                <label
+                  class=""
+                  for="examplePassword"
+                >
+                  Password
+                </label>
+                <input
+                  aria-invalid="false"
+                  class="form-control"
+                  id="examplePassword"
+                  name="password"
+                  placeholder="password placeholder"
+                  type="password"
+                  value=""
+                />
+                <div
+                  class="invalid-feedback"
+                />
+              </div>
+              <button
+                class="btn btn-secondary"
+                type="button"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -9,7 +9,7 @@ import { loginDetailsReducer } from './reducers/loginDetailsReducer';
 import { Provider } from 'react-redux';
 import projectsReducer from './reducers/projectsReducer';
 import createSagaMiddleware from 'redux-saga';
-import userSaga from "./sagas/userSaga";
+import rootSaga from "./sagas/rootSaga";
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -21,7 +21,7 @@ const store = createStore(
   applyMiddleware(sagaMiddleware)
 );
 
-sagaMiddleware.run(userSaga);
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>

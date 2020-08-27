@@ -9,5 +9,6 @@ export const LOGIN_REDUCER = {
 }
 
 export const PROJECT_REDUCER = {
+  GET_PROJECTS: 'GET_PROJECTS',
   SET_PROJECTS: 'SET_PROJECTS'
 }

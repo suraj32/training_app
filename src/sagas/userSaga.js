@@ -3,7 +3,7 @@ import { takeLatest, call, put, all } from "redux-saga/effects";
 import login from "../apis/loginApi";
 import { setUserDetails, loginFailed } from "../actions/loginActions"
 
-function* loginSaga(action) {
+export function* loginSaga(action) {
   try {
     console.log(action);
     const { data } = yield call(login, action.value);
